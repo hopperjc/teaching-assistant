@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 // Comentado pois não existe Aluno em common ainda
-import { Aluno } from '../../../../common/aluno';
+import { MetaService } from './metas.service';
 
 @Component({
   selector: 'app-metas',
@@ -9,15 +8,38 @@ import { Aluno } from '../../../../common/aluno';
   styleUrls: ['./metas.component.css']
 })
 export class MetasComponent implements OnInit {
-  alunos: Aluno[] = [];
+  meta: String
+  metas: String[] = []
+  metaService: MetaService
 
-  constructor() { }
+  constructor() {}
+  
+  cadastrarMeta(meta: String): void {
+    this.metaService.criar(meta)
+    .subscribe(
+      ar => {
+        this.metas.push(ar);
+      },
+      msg => {alert(msg.message);}
+      )
+  }
 
   ngOnInit() {
-
+    this.metaService.getMetas()
+      .subscribe(
+        as => {this.metas = as;},
+        msg => {alert(msg.message)}
+      )            
   }
 
-  atualizarAluno(aluno: Aluno): void {
-
+  removerMeta(meta: String): void {
+    this.metaService.remover(meta)
+      .subscribe(
+        ms => {
+          this.metas.pop()
+        }
+      )  
+    
   }
+
 }

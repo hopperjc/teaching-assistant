@@ -1,18 +1,18 @@
-<div>
-    <button><a>Nova Meta</a></button>
-    <button><a>Clonar</a></button>
-</div>
+<html> 
 
-<div>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>e-mail</th>
-            <th>Média</th>
-        </tr>
-        <tr>
-            <!-- alunos aqui -->
-        </tr>
-    </table>
-</div>
+<table>
+    <tr>
+        <td><label>Metas</label></td>
+        <td><input [(ngModel)]="metas" name="namebox"></td>
+        <td><button (click)="cadastrarMeta(meta)">Cadastrar</button></td>
+    </tr>
+</table>
+
+<h2>Metas</h2>
+<table>
+<tr *ngFor="let m of metas" name="metaslist">
+    <td>{{m}}</td>
+    <td><button (click)="removerMeta(m)">Remover</button></td>
+</tr>
+</table>
+</html>

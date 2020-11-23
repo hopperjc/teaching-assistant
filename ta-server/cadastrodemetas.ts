@@ -1,12 +1,14 @@
 export class CadastroDeMetas {
     metas: String[] = [];
     
-    cadastrar(meta: String): void {
-      
-      return null;
+    cadastrar(meta: String): String {
+      meta = new String()
+      this.metas.push(meta)
+      return meta;
     }
 
-    remover(meta: String): void {
+    remover(): void {
+      this.metas.pop()
       return null;
     }
 

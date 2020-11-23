@@ -3,29 +3,45 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
-import { Turma } from '../../../../common/turma';
 
 @Injectable()
-export class AlunoService {
+export class MetaService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  private taURL = 'http://localhost:3000';
+  private taURL = 'http://localhost:4200';
 
   constructor(private http: HttpClient) {}
 
-
-  atualizar(turma: Turma): Observable<Turma> {
-    return this.http.put<any>(this.taURL + "/aluno",JSON.stringify(turma), {headers: this.headers})          .pipe( 
-                retry(2),
-                map( res => {if (res.success) {return turma;} else {return null;}} )
-              ); 
+  criar(meta: String): Observable<String> {
+    return this.http.post<any>(this.taURL + "/metas", meta, {headers: this.headers})
+      .pipe(
+        retry(2),
+        map( res => {if (res.success) {return meta;} else {return null;}} )
+      )
   }
 
-  getTurmas(): Observable<Turma[]> {
-    return this.http.get<Turma[]>(this.taURL + "/turma")
-              .pipe(
-                 retry(2)
-               );
+  atualizar(meta: String): Observable<String> {
+    return this.http.put<any>(this.taURL + "/metas", meta, {headers: this.headers})
+      .pipe(
+        retry(2),
+        map( res => {if (res.success) {return meta;} else {return null;}} )
+      )    
+  }
+
+  remover(meta: String): Observable<String> {
+    return this.http.delete<any>(this.taURL + "/metas", {headers: this.headers})
+      .pipe(
+        retry(2),
+        map(res => {if (res.success) {return meta;} else {return null;}})
+      )    
+  
+  }
+  
+  getMetas(): Observable<String[]> {
+    return this.http.get<String[]>(this.taURL + "/metas")
+      .pipe(
+        retry(2)
+      );  
   }
 
 }
