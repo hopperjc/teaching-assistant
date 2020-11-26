@@ -13,11 +13,6 @@ Given Consigo ver a meta "Especificar Conceitos de Gerência de Configuração c
 When Escrevo a meta "Especificar Conceitos de Gerência de Configuração com Qualidade"
 Then Uma menssagem de erro é exibida
 
-Scenario: Excluir meta
-Given Estou na página de metas
-When Clico no botão Remover
-Then A meta ao lado do botão é removida
-
 Scenario: Cadastro de metas 
 Given O sistema não contém a meta "Entende Conceito de Gerência de Configuração"
 When O usuário realizar o cadastro da meta "Entende Conceito de Gerência de Configuração"
