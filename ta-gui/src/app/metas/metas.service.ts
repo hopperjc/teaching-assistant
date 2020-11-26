@@ -13,7 +13,7 @@ export class MetaService {
   constructor(private http: HttpClient) {}
 
   criar(meta: Meta): Observable<Meta> {
-    return this.http.post<any>(this.taURL + "/meta", meta, {headers: this.headers})
+    return this.http.post<any>(this.taURL + "/metas", meta, {headers: this.headers})
       .pipe(
         retry(2),
         map( res => {if (res.success) {return meta;} else {return null;}} )
@@ -21,7 +21,7 @@ export class MetaService {
   }
 
   atualizar(meta: Meta): Observable<Meta> {
-    return this.http.put<any>(this.taURL + "/meta", JSON.stringify(meta), {headers: this.headers})
+    return this.http.put<any>(this.taURL + "/metas", JSON.stringify(meta), {headers: this.headers})
       .pipe(
         retry(2),
         map( res => {if (res.success) {return meta;} else {return null;}} )
@@ -29,7 +29,7 @@ export class MetaService {
   }
 
   remover(meta: Meta): Observable<Meta> {
-    const url = this.taURL + `${this.taURL}/meta/${meta.nome}`
+    const url = this.taURL + `${this.taURL}/metas/${meta.nome}`
     return this.http.delete<any>(url, {headers: this.headers})
       .pipe(
         retry(2),

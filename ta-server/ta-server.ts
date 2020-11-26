@@ -39,7 +39,7 @@ taserver.get('/metas', function (req: express.Request, res: express.Response){
     res.send(JSON.stringify(cadastro.getMetas()));
 })
 
-taserver.post('/meta', function (req: express.Request, res: express.Response) {
+taserver.post('/metas', function (req: express.Request, res: express.Response) {
     var meta: Meta = <Meta> req.body;
     meta = cadastro.cadastrar(meta);
     if (meta) {
@@ -49,7 +49,7 @@ taserver.post('/meta', function (req: express.Request, res: express.Response) {
     }
 })
 
-taserver.put('/meta', function (req: express.Request, res: express.Response) {
+taserver.put('/metas', function (req: express.Request, res: express.Response) {
     var meta: Meta = <Meta> req.body;
     meta = cadastro.atualizar(meta);
     if (meta) {
@@ -59,7 +59,7 @@ taserver.put('/meta', function (req: express.Request, res: express.Response) {
     }
 }) 
 
-taserver.delete('/meta', function (req: express.Request, res: express.Response) {
+taserver.delete('/metas', function (req: express.Request, res: express.Response) {
     var meta: Meta = <Meta> req.body;
     cadastro.remover(meta);
     if (meta) {

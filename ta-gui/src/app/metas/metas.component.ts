@@ -43,17 +43,6 @@ export class MetasComponent implements OnInit {
       )            
   }
 
-  atualizarMeta(meta: Meta): void {
-    this.metaService.atualizar(meta.clone())
-      .subscribe(
-        mr => {
-          if (mr){
-            
-          }
-        }
-      )
-  }
-
   removerMeta(meta: Meta): void {
     this.metaService.remover(meta.clone())
       .subscribe(
