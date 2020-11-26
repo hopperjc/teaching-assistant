@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // Comentado pois não existe Aluno em common ainda
 import { MetaService } from './metas.service';
+import { Meta } from './meta'
 
 @Component({
   selector: 'app-metas',
@@ -8,36 +9,58 @@ import { MetaService } from './metas.service';
   styleUrls: ['./metas.component.css']
 })
 export class MetasComponent implements OnInit {
-  meta: String
-  metas: String[] = []
+  meta: Meta = new Meta
+  metas: Meta[] = []
+  metaduplicada: boolean = false;
   metaService: MetaService
 
   constructor() {}
   
-  cadastrarMeta(meta: String): void {
-    this.metaService.criar(meta)
+  cadastrarMeta(meta: Meta): void {
+    this.metaService.criar(meta.clone())
     .subscribe(
-      ar => {
-        this.metas.push(ar);
-      },
+      mr => {
+        if (mr) {
+          this.metas.push(mr)
+          this.meta = new Meta()
+        } else {
+          this.metaduplicada = true;
+        }
+      } ,
       msg => {alert(msg.message);}
       )
+  }
+
+  onMove(): void {
+    this.metaduplicada = false;
   }
 
   ngOnInit() {
     this.metaService.getMetas()
       .subscribe(
-        as => {this.metas = as;},
+        ms => {this.metas = ms;},
         msg => {alert(msg.message)}
       )            
   }
 
-  removerMeta(meta: String): void {
-    this.metaService.remover(meta)
+  atualizarMeta(meta: Meta): void {
+    this.metaService.atualizar(meta.clone())
       .subscribe(
-        ms => {
-          this.metas.pop()
+        mr => {
+          if (mr){
+            
+          }
         }
+      )
+  }
+
+  removerMeta(meta: Meta): void {
+    this.metaService.remover(meta.clone())
+      .subscribe(
+         mr => {
+           mr.delete(this.metas, meta),
+           msg => {alert(msg.message);}
+         }
       )  
     
   }
