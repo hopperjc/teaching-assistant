@@ -13,6 +13,11 @@ async function cadastrarMeta(name) {
     await element(by.buttonText('Adicionar')).click();
 }
 
+async function removerMeta(nome) {
+    await $("input[name='namebox").sendKeys(<string>name);
+    await element(by.buttonText('Remover')).click();
+}
+
 async function assertTamanhoEqual(set,n) {
     await set.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(n));
 }
@@ -45,19 +50,20 @@ defineSupportCode(function ({Given, When, Then}){
     Given(/^Consigo ver a meta "([^\"]*)" na página de metas$/, async(name) => {
         await cadastrarMeta("Entender conceitos de Requisitos");
         await assertElementWithSameName(1, name)
-    })
+    });
 
     Then(/^Uma menssagem de erro é exibida$/, async() =>{
         var allmsgs: ElementArrayFinder = element.all(by.name('msgmetaexistente'));
         await assertTamanhoEqual(allmsgs, 1);
-    })
+    });
 
     When(/^Clico no botão Remover$/, async() => {
         await $("m[name='Remover']").click()
-    })
+    });
 
     Then(/A meta ao lado do botão é removida^$/, async(name) => {
-    })
+        await removerMeta(name)
+    });
 
     Given(/^O sistema não contém a meta "([^\"]*)"$/, async(name) =>{
         await request.get(base_url + "metas")
